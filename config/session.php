@@ -196,4 +196,5 @@ return [
 
     'same_site' => null,
 
+    'secure' => env('SESSION_SECURE_COOKIE', null),
 ];
