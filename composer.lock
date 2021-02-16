@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76616037226e1584b13a6851d5792580",
+    "content-hash": "def317b58c7c5140783dff7b13acd7f0",
     "packages": [
         {
             "name": "brick/math",
@@ -393,16 +393,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.5.11",
+            "version": "2.5.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "e91d67353054bf827c64687fcac5ea44e4dcec54"
+                "reference": "be73521836f978106b3c3cf57de7eaeb261af520"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/e91d67353054bf827c64687fcac5ea44e4dcec54",
-                "reference": "e91d67353054bf827c64687fcac5ea44e4dcec54",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/be73521836f978106b3c3cf57de7eaeb261af520",
+                "reference": "be73521836f978106b3c3cf57de7eaeb261af520",
                 "shasum": ""
             },
             "require": {
@@ -460,7 +460,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2021-02-05T12:52:11+00:00"
+            "time": "2021-02-15T07:55:43+00:00"
         },
         {
             "name": "facade/ignition-contracts",
@@ -1246,16 +1246,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.44.0",
+            "version": "2.45.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd"
+                "reference": "528783b188bdb853eb21239b1722831e0f000a8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd",
-                "reference": "e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/528783b188bdb853eb21239b1722831e0f000a8d",
+                "reference": "528783b188bdb853eb21239b1722831e0f000a8d",
                 "shasum": ""
             },
             "require": {
@@ -1321,7 +1321,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2021-01-26T20:46:41+00:00"
+            "time": "2021-02-11T18:30:17+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2642,7 +2642,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -2704,16 +2704,16 @@
         },
         {
             "name": "symfony/polyfill-iconv",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-iconv.git",
-                "reference": "b34bfb8c4c22650ac080d2662ae3502e5f2f4ae6"
+                "reference": "06fb361659649bcfd6a208a0f1fcaf4e827ad342"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/b34bfb8c4c22650ac080d2662ae3502e5f2f4ae6",
-                "reference": "b34bfb8c4c22650ac080d2662ae3502e5f2f4ae6",
+                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/06fb361659649bcfd6a208a0f1fcaf4e827ad342",
+                "reference": "06fb361659649bcfd6a208a0f1fcaf4e827ad342",
                 "shasum": ""
             },
             "require": {
@@ -2763,20 +2763,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2021-01-22T09:19:47+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
-                "reference": "267a9adeb8ecb8071040a740930e077cdfb987af"
+                "reference": "5601e09b69f26c1828b13b6bb87cb07cddba3170"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/267a9adeb8ecb8071040a740930e077cdfb987af",
-                "reference": "267a9adeb8ecb8071040a740930e077cdfb987af",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/5601e09b69f26c1828b13b6bb87cb07cddba3170",
+                "reference": "5601e09b69f26c1828b13b6bb87cb07cddba3170",
                 "shasum": ""
             },
             "require": {
@@ -2827,20 +2827,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2021-01-22T09:19:47+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
-                "reference": "0eb8293dbbcd6ef6bf81404c9ce7d95bcdf34f44"
+                "reference": "2d63434d922daf7da8dd863e7907e67ee3031483"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/0eb8293dbbcd6ef6bf81404c9ce7d95bcdf34f44",
-                "reference": "0eb8293dbbcd6ef6bf81404c9ce7d95bcdf34f44",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/2d63434d922daf7da8dd863e7907e67ee3031483",
+                "reference": "2d63434d922daf7da8dd863e7907e67ee3031483",
                 "shasum": ""
             },
             "require": {
@@ -2897,20 +2897,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2021-01-22T09:19:47+00:00"
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
-                "reference": "6e971c891537eb617a00bb07a43d182a6915faba"
+                "reference": "43a0283138253ed1d48d352ab6d0bdb3f809f248"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/6e971c891537eb617a00bb07a43d182a6915faba",
-                "reference": "6e971c891537eb617a00bb07a43d182a6915faba",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/43a0283138253ed1d48d352ab6d0bdb3f809f248",
+                "reference": "43a0283138253ed1d48d352ab6d0bdb3f809f248",
                 "shasum": ""
             },
             "require": {
@@ -2964,20 +2964,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2021-01-07T17:09:11+00:00"
+            "time": "2021-01-22T09:19:47+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "f377a3dd1fde44d37b9831d68dc8dea3ffd28e13"
+                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/f377a3dd1fde44d37b9831d68dc8dea3ffd28e13",
-                "reference": "f377a3dd1fde44d37b9831d68dc8dea3ffd28e13",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/5232de97ee3b75b0360528dae24e73db49566ab1",
+                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1",
                 "shasum": ""
             },
             "require": {
@@ -3027,7 +3027,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2021-01-22T09:19:47+00:00"
         },
         {
             "name": "symfony/polyfill-php56",
@@ -3082,7 +3082,7 @@
         },
         {
             "name": "symfony/polyfill-php72",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php72.git",
@@ -3141,7 +3141,7 @@
         },
         {
             "name": "symfony/polyfill-php73",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php73.git",
@@ -3203,7 +3203,7 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
@@ -3959,6 +3959,54 @@
     ],
     "packages-dev": [
         {
+            "name": "apoplavs/laravel-autodoc",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/apoplavs/laravel-autodoc.git",
+                "reference": "5720035ef808f7b64a2355f4b8275208b703e413"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/apoplavs/laravel-autodoc/zipball/5720035ef808f7b64a2355f4b8275208b703e413",
+                "reference": "5720035ef808f7b64a2355f4b8275208b703e413",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.3.0",
+                "minime/annotations": "2.3.1",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Apoplavs\\Support\\AutoDoc\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "src/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrii Poplavskyi",
+                    "email": "p.andriy.v@gmail.com"
+                }
+            ],
+            "description": "Provided middleware for auto generating of OpenApi documentation file by run testing of your API.",
+            "keywords": [
+                "auto-documentation",
+                "laravel",
+                "openapi",
+                "swagger",
+                "testing"
+            ],
+            "time": "2020-07-23T08:49:07+00:00"
+        },
+        {
             "name": "beyondcode/laravel-dump-server",
             "version": "1.7.0",
             "source": {
@@ -4167,6 +4215,55 @@
                 "test"
             ],
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "minime/annotations",
+            "version": "2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marcioAlmada/annotations.git",
+                "reference": "434435902b7dcad927c9fd06e69be72e150cbf84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marcioAlmada/annotations/zipball/434435902b7dcad927c9fd06e69be72e150cbf84",
+                "reference": "434435902b7dcad927c9fd06e69be72e150cbf84",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.4.0",
+                "regex-guard/regex-guard": "~1.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Minime\\Annotations\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márcio Almada",
+                    "email": "marcio3w@gmail.com",
+                    "homepage": "https://github.com/marcioAlmada/"
+                }
+            ],
+            "description": "The KISS PHP annotations library",
+            "keywords": [
+                "annotations",
+                "docblock",
+                "metadata",
+                "php",
+                "reflection"
+            ],
+            "time": "2015-09-16T23:08:34+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -5001,6 +5098,51 @@
                 "xunit"
             ],
             "time": "2021-01-17T07:37:30+00:00"
+        },
+        {
+            "name": "regex-guard/regex-guard",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marcioAlmada/regex-guard.git",
+                "reference": "dc9a8199f4ebef4c21603ad1f6a8cb53542e7d29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marcioAlmada/regex-guard/zipball/dc9a8199f4ebef4c21603ad1f6a8cb53542e7d29",
+                "reference": "dc9a8199f4ebef4c21603ad1f6a8cb53542e7d29",
+                "shasum": ""
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RegexGuard\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márcio Almada",
+                    "email": "marcio3w@gmail.com",
+                    "homepage": "https://github.com/marcioAlmada/"
+                }
+            ],
+            "description": "A wrapper that allows you to validate regular expressions and handle normally uncatchable PCRE compilation warnings",
+            "keywords": [
+                "PCRE",
+                "preg",
+                "regex",
+                "regexp",
+                "support",
+                "utils"
+            ],
+            "time": "2014-09-17T18:04:00+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

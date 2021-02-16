@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Apoplavs\Support\AutoDoc\AutoDocServiceProvider::class,
         /*
          * Application Service Providers...
          */
