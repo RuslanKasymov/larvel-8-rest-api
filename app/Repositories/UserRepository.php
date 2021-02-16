@@ -4,32 +4,19 @@ namespace App\Repositories;
 
 use App\Models\User;
 
-class UserRepository
+class UserRepository extends BaseRepository
 {
-    protected $model;
-
     public function __construct()
     {
-        $this->model = app(User::class);
+        $this->setModel(User::class);
     }
 
-    public function create(array $options): User
+    public function list($filters)
     {
-        return User::create($options);
-    }
-
-    public function first($options, array $with = []): ?User
-    {
-        return User::where($options)->with($with)->first();
-    }
-
-    public function update(int $id, array $data)
-    {
-        User::where('id', $id)->update($data);
-    }
-
-    public function findByEmail($email): ?User
-    {
-        return User::whereEmail($email)->first();
+        return $this
+            ->listQuery($filters)
+            ->filterBy('role_id')
+            ->filterByQuery(['name', 'email'])
+            ->getResults();
     }
 }

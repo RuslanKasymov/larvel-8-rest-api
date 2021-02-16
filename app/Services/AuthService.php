@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Role;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,10 @@ class AuthService
     {
         $user = $this->userService->create(array_merge(
             Arr::only($registerData, ['email', 'name']),
-            ['password' => Hash::make($registerData['password'])]
+            [
+                'password' => Hash::make($registerData['password']),
+                'role_id' => Role::USER
+            ]
         ));
 
         $token = Auth::attempt(Arr::only($registerData, ['email', 'password']));

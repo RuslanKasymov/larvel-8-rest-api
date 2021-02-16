@@ -17,7 +17,7 @@ class User extends Model implements JWTSubject,
     use Notifiable, Authenticatable, Authorizable;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role_id'
     ];
 
     protected $hidden = [
