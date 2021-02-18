@@ -21,16 +21,21 @@ abstract class TestCase extends BaseTestCase
     protected $jwt;
     protected $auth;
     protected $testNow = '2018-11-11 11:11:11';
+    protected static $tables;
 
     public function setUp(): void
     {
         parent::setUp();
 
         Notification::fake();
-        Schema::dropAllTables();
         Carbon::setTestNow(Carbon::parse($this->testNow));
+        Schema::dropAllTables();
+
         $this->artisan('cache:clear');
+        $this->artisan('config:cache');
         $this->artisan('migrate');
+
+        $this->loadTestDump();
 
         $this->auth = app(JWTAuth::class);
         $this->docService = app(SwaggerService::class);
@@ -120,5 +125,100 @@ abstract class TestCase extends BaseTestCase
     public function assertEqualsFixture($fixture, $data)
     {
         $this->assertEquals($this->getJsonFixture($fixture), $data);
+    }
+
+    protected function loadTestDump($truncateExcept = ['migrations', 'password_resets'],
+                                    $prepareSequencesExcept = ['migrations', 'password_resets'])
+    {
+        $dump = $this->getFixture('dump.sql', false);
+
+        if (empty($dump)) {
+            return;
+        }
+
+        $databaseTables = $this->getTables();
+        $scheme = config('database.default');
+
+        $this->clearDatabase($scheme, $databaseTables, $truncateExcept);
+
+        DB::unprepared($dump);
+
+        if ($scheme === 'pgsql') {
+            $this->prepareSequences($databaseTables, $prepareSequencesExcept);
+        }
+    }
+
+    protected function getTables()
+    {
+        if (empty(self::$tables)) {
+            self::$tables = app('db.connection')
+                ->getDoctrineSchemaManager()
+                ->listTableNames();
+        }
+
+        return self::$tables;
+    }
+
+    public function clearDatabase($scheme, $tables, $except)
+    {
+        if ($scheme === 'pgsql') {
+            $query = $this->getClearPsqlDatabaseQuery($tables, $except);
+        } elseif ($scheme === 'mysql') {
+            $query = $this->getClearMySQLDatabaseQuery($tables, $except);
+        }
+
+        if (!empty($query)) {
+            app('db.connection')->unprepared($query);
+        }
+    }
+
+    public function getClearPsqlDatabaseQuery($tables, $except = ['migrations'])
+    {
+        return $this->arrayConcat($tables, function ($table) use ($except) {
+            if (in_array($table, $except)) {
+                return '';
+            } else {
+                return "TRUNCATE {$table} RESTART IDENTITY CASCADE; \n";
+            }
+        });
+    }
+
+    public function getClearMySQLDatabaseQuery($tables, $except = ['migrations'])
+    {
+        $query = "SET FOREIGN_KEY_CHECKS = 0;\n";
+
+        $query .= $this->arrayConcat($tables, function ($table) use ($except) {
+            if (in_array($table, $except)) {
+                return '';
+            } else {
+                return "TRUNCATE TABLE {$table}; \n";
+            }
+        });
+
+        return "{$query} SET FOREIGN_KEY_CHECKS = 1;\n";
+    }
+
+    public function prepareSequences($tables, $except)
+    {
+        $query = $this->arrayConcat($tables, function ($table) use ($except) {
+            if (in_array($table, $except)) {
+                return '';
+            } else {
+                return "SELECT setval('{$table}_id_seq', (select max(id) from {$table}));\n";
+            }
+        });
+
+        app('db.connection')->unprepared($query);
+    }
+
+    function arrayConcat($array, $callback)
+    {
+        $content = '';
+
+        foreach ($array as $key => $value) {
+            $content .= $callback($value, $key);
+        }
+
+        return $content;
     }
 }

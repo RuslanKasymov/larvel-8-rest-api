@@ -1,0 +1,13 @@
+{
+    "id": 5,
+    "first_name": "Todd",
+    "last_name": "Pavlou",
+    "email": "createuser@example.com",
+    "phone": "0435725384",
+    "role_id": 3,
+    "password": "123123",
+    "date_of_birth": "1997-08-11",
+    "company_id": 1,
+    "avatar_id": 1,
+    "department_id": 1
+}
