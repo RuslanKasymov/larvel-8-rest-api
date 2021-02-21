@@ -1,0 +1,23 @@
+{
+    "current_page": 2,
+    "data": [
+        {
+            "id": 2,
+            "name": "Alien",
+            "email": "alien.west@example.com",
+            "created_at": null,
+            "updated_at": null,
+            "role_id": 2
+        }
+    ],
+    "first_page_url": "http:\/\/localhost?page=1",
+    "from": 2,
+    "last_page": 2,
+    "last_page_url": "http:\/\/localhost?page=2",
+    "next_page_url": null,
+    "path": "http:\/\/localhost",
+    "per_page": 1,
+    "prev_page_url": "http:\/\/localhost?page=1",
+    "to": 2,
+    "total": 2
+}

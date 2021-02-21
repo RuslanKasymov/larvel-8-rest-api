@@ -19,13 +19,9 @@ class AuthService
 
     public function register($registerData)
     {
-        $user = $this->userService->create(array_merge(
-            Arr::only($registerData, ['email', 'name']),
-            [
-                'password' => Hash::make($registerData['password']),
-                'role_id' => Role::USER
-            ]
-        ));
+        $registerData['role_id'] = Role::USER;
+
+        $user = $this->userService->create($registerData);
 
         $token = Auth::attempt(Arr::only($registerData, ['email', 'password']));
 

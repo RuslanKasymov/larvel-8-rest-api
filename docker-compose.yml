@@ -23,6 +23,7 @@ services:
           XDEBUG_REMOTE_PORT: 9000
           XDEBUG_REMOTE_HOST: host.docker.internal
           php.xdebug.max_nesting_level: 250
+          php.memory_limit: -1
 
   pgsql:
     image: ronasit/postgres:9.6

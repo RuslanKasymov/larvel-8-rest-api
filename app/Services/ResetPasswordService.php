@@ -40,7 +40,7 @@ class ResetPasswordService
             throw new NotFoundHttpException('User not found');
         }
 
-        $this->userService->update($user->id, ['password' => Hash::make($password)]);
+        $this->userService->update($user->id, ['password' => $password]);
         $this->passwordResetRepository->delete(['email' => $user->email]);
 
         return true;

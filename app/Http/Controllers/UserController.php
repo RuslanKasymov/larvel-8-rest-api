@@ -9,6 +9,7 @@ use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Requests\Users\DeleteUserRequest;
 use App\Http\Requests\Users\SearchUserRequest;
+use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Users\UpdateProfileRequest;
 use App\Http\Requests\Users\GetUserProfileRequest;
@@ -29,9 +30,9 @@ class UserController extends Controller
         return response()->json($result);
     }
 
-    public function update(UpdateUserRequest $request, UserService $service, User $user)
+    public function update(UpdateUserRequest $request, UserService $service, $userId)
     {
-        $service->update($user->id, $request->except('password'));
+        $service->update($userId, $request->validated());
 
         return response('', Response::HTTP_NO_CONTENT);
     }
@@ -48,7 +49,7 @@ class UserController extends Controller
 
     public function updateProfile(UpdateProfileRequest $request, UserService $service)
     {
-        $service->update($request->user()->id, $request->all());
+        $service->update($request->user()->id, Arr::except($request->validated(), 'confirm'));
 
         return response('', Response::HTTP_NO_CONTENT);
     }

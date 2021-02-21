@@ -1,0 +1,31 @@
+{
+    "current_page": 1,
+    "data": [
+        {
+            "id": 1,
+            "name": "Gerhard",
+            "email": "fidel.kutch@example.com",
+            "created_at": null,
+            "updated_at": null,
+            "role_id": 1
+        },
+        {
+            "id": 2,
+            "name": "Alien",
+            "email": "alien.west@example.com",
+            "created_at": null,
+            "updated_at": null,
+            "role_id": 2
+        }
+    ],
+    "first_page_url": "http:\/\/localhost?page=1",
+    "from": 1,
+    "last_page": 1,
+    "last_page_url": "http:\/\/localhost?page=1",
+    "next_page_url": null,
+    "path": "http:\/\/localhost",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": 2,
+    "total": 2
+}
