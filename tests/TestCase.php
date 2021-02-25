@@ -164,8 +164,8 @@ abstract class TestCase extends BaseTestCase
         $this->assertEquals($this->getJsonFixture($fixture), $data);
     }
 
-    protected function loadTestDump($truncateExcept = ['migrations', 'password_resets'],
-                                    $prepareSequencesExcept = ['migrations', 'password_resets'])
+    protected function loadTestDump($truncateExcept = ['migrations', 'password_resets', 'roles'],
+                                    $prepareSequencesExcept = ['migrations', 'password_resets', 'roles'])
     {
         $dump = $this->getFixture('dump.sql', false);
 

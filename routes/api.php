@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UserController;
 
 Route::prefix('auth')->group(function () {
@@ -13,7 +14,7 @@ Route::prefix('auth')->group(function () {
     Route::post('logout', ['uses' => AuthController::class . '@logout'])->middleware('auth:api');
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth:api'], function () {
 
     Route::prefix('users')->group(function () {
         Route::post('/', ['uses' => UserController::class . '@create']);
@@ -26,5 +27,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('profile')->group(function () {
         Route::get('/', ['uses' => UserController::class . '@profile']);
         Route::put('/', ['uses' => UserController::class . '@updateProfile']);
+    });
+
+    Route::prefix('media')->group(function () {
+        Route::post('/', ['uses' => MediaController::class . '@create']);
+        Route::delete('/{id}', ['uses' => MediaController::class . '@delete']);
+        Route::get('/', ['uses' => MediaController::class . '@list']);
     });
 });
