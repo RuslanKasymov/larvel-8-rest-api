@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Repositories\MediaRepository;
 use App\Support\Traits\FileProcessingTrait;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 /**

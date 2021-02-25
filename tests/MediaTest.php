@@ -19,6 +19,8 @@ class MediaTest extends TestCase
     {
         parent::setUp();
 
+        Storage::fake();
+
         $this->admin = User::find(1);
         $this->user = User::find(2);
         $this->file = UploadedFile::fake()->image('file.png', 600, 600);
@@ -104,10 +106,6 @@ class MediaTest extends TestCase
         $response = $this->actingAs($this->admin)->json('delete', '/media/0');
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertDatabaseMissing('media', [
-            'id' => 0
-        ]);
     }
 
     public function testDeleteNoPermission()
@@ -132,17 +130,6 @@ class MediaTest extends TestCase
         ]);
     }
 
-    public function testDeleteAsOwnerMachine()
-    {
-        $response = $this->actingAs($this->user)->json('delete', '/media/2');
-
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
-
-        $this->assertDatabaseMissing('media', [
-            'id' => 2
-        ]);
-    }
-
     public function testDeleteNoAuth()
     {
         $response = $this->json('delete', '/media/1');
@@ -158,44 +145,11 @@ class MediaTest extends TestCase
     {
         return [
             [
-                'filter' => ['query' => 'Deleted photo'],
-                'result' => 'get_medias_by_name.json'
-            ],
-            [
-                'filter' => ['query' => 'product'],
-                'result' => 'get_medias_by_query.json'
-            ],
-            [
                 'filter' => [
-                    'query' => 'photo',
-                    'order_by' => 'name',
-                    'desc' => false,
-                    'per_page' => 2
+                    'per_page' => 2,
+                    'page' => 2
                 ],
-                'result' => 'get_medias_complex.json'
-            ]
-        ];
-    }
-
-    public function getUserSearchFilters()
-    {
-        return [
-            [
-                'filter' => ['query' => 'main'],
-                'result' => 'get_by_name.json'
-            ],
-            [
-                'filter' => ['query' => 'product'],
-                'result' => 'get_by_query.json'
-            ],
-            [
-                'filter' => [
-                    'query' => 'photo',
-                    'order_by' => 'name',
-                    'desc' => false,
-                    'per_page' => 2
-                ],
-                'result' => 'get_complex.json'
+                'result' => 'list_media_by_page_per_page.json'
             ]
         ];
     }
@@ -209,21 +163,6 @@ class MediaTest extends TestCase
     public function testSearch($filter, $fixture)
     {
         $response = $this->actingAs($this->admin)->json('get', '/media', $filter);
-
-        $response->assertStatus(Response::HTTP_OK);
-
-        $this->assertEqualsFixture($fixture, $response->json());
-    }
-
-    /**
-     * @dataProvider  getUserSearchFilters
-     *
-     * @param  array $filter
-     * @param  string $fixture
-     */
-    public function testSearchByUser($filter, $fixture)
-    {
-        $response = $this->actingAs($this->user)->json('get', '/media', $filter);
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -258,7 +197,7 @@ class MediaTest extends TestCase
 
         $response->assertJson([
             'errors' => [
-                'file' => ['The file must be a file of type: jpg, jpeg, bmp, png, pdf.']
+                'file' => ['The file must be a file of type: jpg, jpeg, bmp, png.']
             ]
         ]);
     }
@@ -293,23 +232,6 @@ class MediaTest extends TestCase
 
         $this->assertDatabaseHas('media', [
             'id' => $responseData['id'],
-        ]);
-    }
-
-    public function testCreateThumbnailForCreatedMachinesCommand()
-    {
-        $this->mockHttpRequest();
-
-        Artisan::call('media:create-thumbnails-for-machines');
-
-        $this->assertDatabaseHas('media', [
-            'id' => 1,
-            'thumbnail' => null
-        ]);
-
-        $this->assertDatabaseMissing('media', [
-            'id' => 5,
-            'thumbnail' => null
         ]);
     }
 }

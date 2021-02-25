@@ -8,15 +8,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthTest extends TestCase
 {
-    public function testLogin()
+    private $user;
+
+    public function setUp(): void
     {
-        factory(User::class)->create([
+        parent::setUp();
+
+        $this->user = User::factory()->create([
             'name' => 'Edward Orn',
             'email' => 'one@example.com',
             'password' => Hash::make('123456'),
             'role_id' => 1,
         ]);
+    }
 
+    public function testLogin()
+    {
         $response = $this->json('post', 'auth/login', [
             'email' => 'one@example.com',
             'password' => '123456'
@@ -36,11 +43,6 @@ class AuthTest extends TestCase
 
     public function testLoginWithIncorrectPassword()
     {
-        factory(User::class)->create([
-            'name' => 'Edward Orn',
-            'email' => 'one@example.com',
-        ]);
-
         $response = $this->json('post', 'auth/login', [
             'email' => 'one@example.com',
             'password' => 'secret1'
@@ -51,11 +53,7 @@ class AuthTest extends TestCase
 
     public function testRefresh()
     {
-        $user = factory(User::class)->create([
-            'email' => 'one@example.com'
-        ]);
-
-        $response = $this->actingAs($user)->json('get', 'auth/refresh');
+        $response = $this->actingAs($this->user)->json('get', 'auth/refresh');
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -67,11 +65,7 @@ class AuthTest extends TestCase
 
     public function testLogout()
     {
-        $user = factory(User::class)->create([
-            'email' => 'one@example.com'
-        ]);
-
-        $response = $this->actingAs($user)->json('post', 'auth/logout');
+        $response = $this->actingAs($this->user)->json('post', 'auth/logout');
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
     }

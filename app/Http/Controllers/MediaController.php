@@ -17,8 +17,7 @@ class MediaController extends Controller
 
         $media = $service->create($file, $data);
 
-        return response($media, Response::HTTP_OK);
-
+        return response($media, Response::HTTP_CREATED);
     }
 
     public function list(SearchMediaRequest $request, MediaService $service)

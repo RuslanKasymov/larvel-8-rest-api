@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService extends BaseService
 {
-    protected $repository;
-
     public function __construct()
     {
-        $this->repository = app(UserRepository::class);
+        parent::__construct();
+
+        $this->setRepository(UserRepository::class);
     }
 
     public function create($data): void

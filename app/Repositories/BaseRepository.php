@@ -5,8 +5,6 @@ namespace App\Repositories;
 use App\Support\Traits\ListQueryTrait;
 use Exception;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class BaseRepository
 {

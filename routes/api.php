@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
     Route::post('register', ['uses' => AuthController::class . '@register']);
@@ -15,7 +16,6 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-
     Route::prefix('users')->group(function () {
         Route::post('/', ['uses' => UserController::class . '@create']);
         Route::put('/{id}', ['uses' => UserController::class . '@update']);
