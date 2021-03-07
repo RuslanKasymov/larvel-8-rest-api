@@ -23,7 +23,6 @@ class RegisterRequest extends FormRequest
                 'same:password_confirmation',
             ],
             'password_confirmation' => 'required|string',
-            'shop_invite' => 'nullable'
         ];
     }
 }

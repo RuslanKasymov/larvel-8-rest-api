@@ -2,9 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Models\PasswordReset;
 use App\Support\Traits\ListQueryTrait;
 use Exception;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class BaseRepository
 {
@@ -50,6 +52,11 @@ class BaseRepository
         $options = $this->prepareOptions($options);
 
         $this->model->where($options)->delete();
+    }
+
+    public function updateOrCreate(array $options, array $data)
+    {
+        return $this->model->updateOrCreate($options, $data);
     }
 
     public function exists($options)

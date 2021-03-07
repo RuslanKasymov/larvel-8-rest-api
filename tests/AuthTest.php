@@ -2,24 +2,23 @@
 
 namespace Tests;
 
+use App\Models\PasswordReset;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Notifications\ForgotPasswordNotification;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Support\AuthTestTrait;
 
 class AuthTest extends TestCase
 {
+    use AuthTestTrait;
+
     private $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->user = User::factory()->create([
-            'name' => 'Edward Orn',
-            'email' => 'one@example.com',
-            'password' => Hash::make('123456'),
-            'role_id' => 1,
-        ]);
+        $this->user = User::find(1);
     }
 
     public function testLogin()
@@ -34,9 +33,7 @@ class AuthTest extends TestCase
                 'user' => [
                     'id' => 1,
                     'name' => 'Edward Orn',
-                    'email' => 'one@example.com',
-                    'created_at' => '2018-11-11T11:11:11.000000Z',
-                    'updated_at' => '2018-11-11T11:11:11.000000Z'
+                    'email' => 'one@example.com'
                 ]
             ]);
     }
@@ -68,5 +65,53 @@ class AuthTest extends TestCase
         $response = $this->actingAs($this->user)->json('post', 'auth/logout');
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
+    }
+
+    public function testForgotPassword()
+    {
+        $this->mockUniqueTokenGeneration('some_token');
+
+        $response = $this->json('post', '/auth/forgot-password', [
+            'email' => 'one@example.com'
+        ]);
+
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertDatabaseMissing('password_resets', [
+            'email' => 'one@example.com',
+            'token' => null
+        ]);
+
+        $this->assertNotificationEquals($this->user, ForgotPasswordNotification::class, [
+            'mail' => [
+                'subject' => 'Password reset',
+                'fixture' => 'forgot_password_email.html'
+            ],
+        ]);
+    }
+
+    public function testRestorePassword()
+    {
+        $this->user = PasswordReset::factory()->create([
+            'email' => 'one@example.com',
+            'token' => 'restore_token',
+        ]);
+
+        $response = $this->json('post', '/auth/reset-password', [
+            'password' => 'new_password',
+            'token' => 'restore_token',
+        ]);
+
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertDatabaseMissing('password_resets', [
+            'email' => 'one@example.com',
+            'token' => 'restore_token'
+        ]);
+
+        $this->assertDatabaseMissing('users', [
+            'email' => 'one@example.com',
+            'password' => '$2y$04$2lGkEKRiFe5eYsEP5cD1BeLH0dbSnh23xtpgsKG3Cp3dCbRmHnTPa'
+        ]);
     }
 }

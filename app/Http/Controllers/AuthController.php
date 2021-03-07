@@ -10,6 +10,7 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Services\AuthService;
 use App\Services\ResetPasswordService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -18,21 +19,21 @@ use Tymon\JWTAuth\JWTAuth;
 
 class AuthController extends Controller
 {
-    protected $authService;
+    protected AuthService $authService;
 
     public function __construct(AuthService $service)
     {
         $this->authService = $service;
     }
 
-    public function register(RegisterRequest $request, AuthService $service)
+    public function register(RegisterRequest $request, AuthService $service): JsonResponse
     {
         list($token, $user) = $this->authService->register($request->only('name', 'email', 'password'));
 
         return $service->respondWithToken($token, $user);
     }
 
-    public function login(LoginRequest $request, AuthService $service)
+    public function login(LoginRequest $request, AuthService $service): JsonResponse
     {
         $credentials = $request->only('email', 'password');
 
@@ -48,14 +49,14 @@ class AuthController extends Controller
         return $service->respondWithToken($token, Auth::user());
     }
 
-    public function logout(LogoutRequest $request, JWTAuth $jwt)
+    public function logout(LogoutRequest $request, JWTAuth $jwt): JsonResponse
     {
         $jwt->invalidate($jwt->getToken());
 
         return response()->json('', Response::HTTP_NO_CONTENT);
     }
 
-    public function refresh(RefreshTokenRequest $request, AuthService $service)
+    public function refresh(RefreshTokenRequest $request, AuthService $service): JsonResponse
     {
         $user = Auth::user();
         $token = auth()->tokenById($user->id);
@@ -63,14 +64,14 @@ class AuthController extends Controller
         return $service->respondWithToken($token, $user);
     }
 
-    public function forgotPassword(ForgotPasswordRequest $request, ResetPasswordService $service)
+    public function forgotPassword(ForgotPasswordRequest $request, ResetPasswordService $service): JsonResponse
     {
         $service->forgotPassword($request->input('email'));
 
         return response()->json('', Response::HTTP_NO_CONTENT);
     }
 
-    public function resetPassword(ResetPasswordRequest $request, ResetPasswordService $service)
+    public function resetPassword(ResetPasswordRequest $request, ResetPasswordService $service): JsonResponse
     {
         try {
             $service->resetPassword(
@@ -78,9 +79,9 @@ class AuthController extends Controller
                 $request->input('password')
             );
         } catch (NotFoundHttpException $exception) {
-            return response($exception->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->json($exception->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        return response('', Response::HTTP_NO_CONTENT);
+        return response()->json('', Response::HTTP_NO_CONTENT);
     }
 }

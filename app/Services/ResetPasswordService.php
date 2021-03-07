@@ -2,36 +2,36 @@
 
 namespace App\Services;
 
-use App\Notifications\ForgotPassword;
+use App\Notifications\ForgotPasswordNotification;
 use App\Repositories\PasswordResetRepository;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ResetPasswordService
+class ResetPasswordService extends BaseService
 {
-    protected $passwordResetRepository;
     protected $userService;
 
     public function __construct()
     {
-        $this->passwordResetRepository = app(PasswordResetRepository::class);
+        parent::__construct();
+
+        $this->setRepository(PasswordResetRepository::class);
         $this->userService = app(UserService::class);
     }
 
-    public function forgotPassword(string $email)
+    public function forgotPassword(string $email): void
     {
+        $hash = $this->generateUniqueHash();
         $user = $this->userService->first(['email' => $email]);
-        $passwordReset = $this->passwordResetRepository->updateOrCreate($email);
 
-        $user->notify(new ForgotPassword($passwordReset->token));
+        $passwordReset = $this->repository->updateOrCreate(['email' => $email], [
+            'token' => $hash
+        ]);
+
+        $user->notify(new ForgotPasswordNotification($passwordReset->token));
     }
 
-    public function first(array $options)
-    {
-        return $this->passwordResetRepository->first($options);
-    }
-
-    public function resetPassword(string $token, string $password)
+    public function resetPassword(string $token, string $password): void
     {
         $resetPasswordEntry = $this->first(['token' => $token]);
         $user = $this->userService->first(['email' => $resetPasswordEntry->email]);
@@ -41,8 +41,11 @@ class ResetPasswordService
         }
 
         $this->userService->update($user->id, ['password' => $password]);
-        $this->passwordResetRepository->delete(['email' => $user->email]);
+        $this->repository->delete(['email' => $user->email]);
+    }
 
-        return true;
+    protected function generateUniqueHash($length = 16): string
+    {
+        return bin2hex(openssl_random_pseudo_bytes($length));
     }
 }
