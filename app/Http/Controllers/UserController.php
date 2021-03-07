@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Services\UserService;
 use App\Http\Requests\Users\GetUserRequest;
 use App\Http\Requests\Users\CreateUserRequest;
@@ -20,7 +19,7 @@ class UserController extends Controller
     {
         $result = $service->create($request->validated());
 
-        return response()->json($result);
+        return response()->json($result, Response::HTTP_CREATED);
     }
 
     public function get(GetUserRequest $request, UserService $service, $id)
@@ -34,7 +33,7 @@ class UserController extends Controller
     {
         $service->update($userId, $request->validated());
 
-        return response('', Response::HTTP_NO_CONTENT);
+        return response()->noContent();
     }
 
     public function profile(GetUserProfileRequest $request, UserService $service)
@@ -58,7 +57,7 @@ class UserController extends Controller
     {
         $service->delete($id);
 
-        return response('', Response::HTTP_NO_CONTENT);
+        return response()->noContent();
     }
 
     public function list(SearchUserRequest $request, UserService $service)

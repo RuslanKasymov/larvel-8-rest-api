@@ -67,7 +67,6 @@ abstract class TestCase extends BaseTestCase
         Carbon::setTestNow(Carbon::parse($this->testNow));
 
         $this->artisan('cache:clear');
-        $this->artisan('config:cache');
         $this->artisan('migrate');
 
         $this->loadTestDump();

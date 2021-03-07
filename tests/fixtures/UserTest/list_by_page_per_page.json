@@ -10,23 +10,23 @@
             "role_id": 2
         }
     ],
-    "first_page_url": "http:\/\/localhost?page=1",
+    "first_page_url": "http:\/\/localhost\/users?page=1",
     "from": 2,
     "last_page": 2,
-    "last_page_url": "http:\/\/localhost?page=2",
+    "last_page_url": "http:\/\/localhost\/users?page=2",
     "links": [
         {
-            "url": "http:\/\/localhost?page=1",
+            "url": "http:\/\/localhost\/users?page=1",
             "label": "&laquo; Previous",
             "active": false
         },
         {
-            "url": "http:\/\/localhost?page=1",
+            "url": "http:\/\/localhost\/users?page=1",
             "label": "1",
             "active": false
         },
         {
-            "url": "http:\/\/localhost?page=2",
+            "url": "http:\/\/localhost\/users?page=2",
             "label": "2",
             "active": true
         },
@@ -37,9 +37,9 @@
         }
     ],
     "next_page_url": null,
-    "path": "http:\/\/localhost",
+    "path": "http:\/\/localhost\/users",
     "per_page": 1,
-    "prev_page_url": "http:\/\/localhost?page=1",
+    "prev_page_url": "http:\/\/localhost\/users?page=1",
     "to": 2,
     "total": 2
 }

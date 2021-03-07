@@ -8,9 +8,12 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Support\MediaTestTrait;
 
 class MediaTest extends TestCase
 {
+    use MediaTestTrait;
+
     protected $admin;
     protected $user;
     protected $file;
@@ -30,7 +33,7 @@ class MediaTest extends TestCase
     {
         $response = $this->actingAs($this->admin)->json('post', '/media', ['file' => $this->file]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertStatus(Response::HTTP_CREATED);
 
         $responseData = $response->json();
 
@@ -57,30 +60,7 @@ class MediaTest extends TestCase
             'is_public' => true
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
-    }
-
-    public function testCreateCheckUrls()
-    {
-        $this->actingAs($this->admin)->json('post', '/media', ['file' => $this->file]);
-
-        $this->assertEquals(1, Media::where('link', 'like', '/%')->count());
-    }
-
-    public function testCreateCheckResponse()
-    {
-        $response = $this->actingAs($this->admin)->json('post', '/media', ['file' => $this->file]);
-
-        $responseData = $response->json();
-
-        $this->assertDatabaseHas('media', [
-            'id' => $responseData['id'],
-            'link' => $responseData['link']
-        ]);
-
-        Storage::disk('local')->assertExists($this->getFilePathFromUrl($responseData['link']));
-
-        $this->clearUploadedFilesFolder();
+        $response->assertStatus(Response::HTTP_CREATED);
     }
 
     public function testCreateNoAuth()

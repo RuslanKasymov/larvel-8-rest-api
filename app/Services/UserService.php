@@ -15,11 +15,11 @@ class UserService extends BaseService
         $this->setRepository(UserRepository::class);
     }
 
-    public function create($data): void
+    public function create($data)
     {
         $this->checkAndHashPassword($data);
 
-        $this->repository->create($data);
+        return $this->repository->create($data);
     }
 
     public function update($options, $data): void

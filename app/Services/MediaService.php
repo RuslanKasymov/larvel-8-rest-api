@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\MediaRepository;
 use App\Support\Traits\FileProcessingTrait;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -29,7 +30,7 @@ class MediaService extends BaseService
             $this->rotateFromExif($file);
         }
 
-        $options = ($data['is_public'] == true) ? 'public' : [];
+        $options = (Arr::get($data, 'is_public') == true) ? 'public' : [];
 
         list($data['link'], $data['filepath']) = $this->saveFile($file, $folder, $options);
 

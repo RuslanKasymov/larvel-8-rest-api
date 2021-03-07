@@ -10,7 +10,7 @@ class CreateUserRequest extends FormRequest
 {
     public function authorize()
     {
-        return $this->user()->role_id == Role::ADMIN;
+        return true;
     }
 
     public function rules()
@@ -26,9 +26,9 @@ class CreateUserRequest extends FormRequest
     public function validateResolved()
     {
         parent::validateResolved();
-
-        if ($this->has('role_id') && $this->user()->role_id !== Role::ADMIN) {
-            throw new AccessDeniedHttpException('You haven\'t access to this action');
-        }
+//
+//        if ($this->has('role_id') && $this->user()->role_id !== Role::ADMIN) {
+//            throw new AccessDeniedHttpException('You haven\'t access to this action');
+//        }
     }
 }

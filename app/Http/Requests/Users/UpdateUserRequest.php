@@ -12,8 +12,7 @@ class UpdateUserRequest extends FormRequest
 {
     public function authorize()
     {
-        return $this->user()->role_id == Role::ADMIN ||
-            $this->user()->id == $this->route('id');
+        return true;
     }
 
     public function rules()
