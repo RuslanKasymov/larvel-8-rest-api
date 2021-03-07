@@ -11,7 +11,6 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Schema;
 use Tymon\JWTAuth\JWTAuth;
 
 abstract class TestCase extends BaseTestCase
@@ -66,10 +65,8 @@ abstract class TestCase extends BaseTestCase
 
         Notification::fake();
         Carbon::setTestNow(Carbon::parse($this->testNow));
-        Schema::dropAllTables();
 
         $this->artisan('cache:clear');
-        $this->artisan('config:cache');
         $this->artisan('migrate');
 
         $this->loadTestDump();
@@ -164,19 +161,19 @@ abstract class TestCase extends BaseTestCase
         $this->assertEquals($this->getJsonFixture($fixture), $data);
     }
 
-    protected function loadTestDump($truncateExcept = ['migrations', 'password_resets'],
-                                    $prepareSequencesExcept = ['migrations', 'password_resets'])
+    protected function loadTestDump($truncateExcept = ['migrations', 'password_resets', 'roles'],
+                                    $prepareSequencesExcept = ['migrations', 'password_resets', 'roles'])
     {
         $dump = $this->getFixture('dump.sql', false);
-
-        if (empty($dump)) {
-            return;
-        }
 
         $databaseTables = $this->getTables();
         $scheme = config('database.default');
 
         $this->clearDatabase($scheme, $databaseTables, array_merge($this->postgisTables, $truncateExcept));
+
+        if (empty($dump)) {
+            return;
+        }
 
         DB::unprepared($dump);
 

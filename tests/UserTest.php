@@ -25,7 +25,7 @@ class UserTest extends TestCase
 
         $response = $this->actingAs($this->admin)->json('post', '/users', $data);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertStatus(Response::HTTP_CREATED);
 
         $this->assertDatabaseHas('users', Arr::except($data, 'password'));
     }

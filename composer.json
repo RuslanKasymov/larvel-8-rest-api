@@ -8,12 +8,15 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
+        "ext-exif": "*",
+        "ext-gd": "*",
         "doctrine/dbal": "2.*",
         "facade/ignition": "^2.3",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "^7.0",
+        "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

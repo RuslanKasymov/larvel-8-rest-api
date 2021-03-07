@@ -7,7 +7,6 @@ use BadMethodCallException;
 class BaseService
 {
     protected $authorizedUser;
-
     protected $repository;
 
     public function __construct()
