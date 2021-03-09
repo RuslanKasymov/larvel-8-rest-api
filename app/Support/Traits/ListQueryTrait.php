@@ -9,22 +9,16 @@ use Prophecy\Exception\Doubler\MethodNotFoundException;
 
 trait ListQueryTrait
 {
-    public function orderBy($default = null, $defaultDesc = false)
+    public function orderBy($defaultDesc = false)
     {
-        $default = $default ?? $this->primaryKey;
-
-        $orderField = Arr::get($this->filters, 'order_by', $default);
-        $isDesc = Arr::get($this->filters, 'desc', $defaultDesc);
+        $orderField = Arr::get($this->filters, 'order_by', $this->defaultOrderField);
+        $orderDirection = $this->getOrderDirection(Arr::get($this->filters, 'desc', $defaultDesc));
 
         if (Str::contains($orderField, '.')) {
-            $this->query->orderByRelated($orderField, $this->getDesc($isDesc));
-        } else {
-            $this->query->orderBy($orderField, $this->getDesc($isDesc));
+            $this->query->orderByRelated($orderField, $orderDirection);
         }
 
-        if ($orderField != $default) {
-            $this->query->orderBy($default, $this->getDesc($defaultDesc));
-        }
+        $this->query->orderBy($orderField, $orderDirection);
 
         return $this;
     }
@@ -86,7 +80,7 @@ trait ListQueryTrait
         }
     }
 
-    protected function getDesc($isDesc)
+    protected function getOrderDirection($isDesc)
     {
         return $isDesc ? 'DESC' : 'ASC';
     }

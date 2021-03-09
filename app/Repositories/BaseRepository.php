@@ -15,12 +15,14 @@ class BaseRepository
     protected string $primaryKey;
     protected $query;
     protected array $filters;
+    protected string $defaultOrderField;
 
     public function setModel($modelClass)
     {
         $this->model = new $modelClass();
 
         $this->primaryKey = $this->model->getKeyName();
+        $this->defaultOrderField = $this->primaryKey;
 
         $this->checkPrimaryKey();
     }
