@@ -78,8 +78,6 @@ trait ListQueryTrait
             $shiftedRelation = array_shift($entities);
             $relations = implode('.', $entities);
 
-            //check has relation
-
             $query->whereHas($shiftedRelation, function ($q) use ($relations) {
                 $q->addWhereByQuery($q, $relations);
             });
@@ -92,5 +90,4 @@ trait ListQueryTrait
     {
         return $isDesc ? 'DESC' : 'ASC';
     }
-
 }

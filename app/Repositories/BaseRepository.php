@@ -76,12 +76,12 @@ class BaseRepository
         return $this;
     }
 
-    public function filterBy($field, $filterName = null)
+    public function filterBy($field, $sign = '=', $filterName = null)
     {
         $filterName = $filterName ?? $field;
 
         if (Arr::has($this->filters, $filterName)) {
-            $this->addWhere($this->query, $field, $this->filters[$filterName]);
+            $this->addWhere($this->query, $field, $this->filters[$filterName], $sign);
         }
 
         return $this;
