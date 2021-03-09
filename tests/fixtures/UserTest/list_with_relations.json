@@ -1,0 +1,62 @@
+{
+    "current_page": 1,
+    "data": [
+        {
+            "id": 1,
+            "name": "Gerhard",
+            "email": "fidel.kutch@example.com",
+            "created_at": null,
+            "updated_at": null,
+            "role_id": 1,
+            "role_count": 1,
+            "role": {
+                "id": 1,
+                "name": "administrator",
+                "created_at": null,
+                "updated_at": null
+            }
+        },
+        {
+            "id": 2,
+            "name": "Alien",
+            "email": "alien.west@example.com",
+            "created_at": null,
+            "updated_at": null,
+            "role_id": 2,
+            "role_count": 1,
+            "role": {
+                "id": 2,
+                "name": "user",
+                "created_at": null,
+                "updated_at": null
+            }
+        }
+    ],
+    "first_page_url": "http:\/\/localhost\/users?page=1",
+    "from": 1,
+    "last_page": 1,
+    "last_page_url": "http:\/\/localhost\/users?page=1",
+    "links": [
+        {
+            "url": null,
+            "label": "&laquo; Previous",
+            "active": false
+        },
+        {
+            "url": "http:\/\/localhost\/users?page=1",
+            "label": "1",
+            "active": true
+        },
+        {
+            "url": null,
+            "label": "Next &raquo;",
+            "active": false
+        }
+    ],
+    "next_page_url": null,
+    "path": "http:\/\/localhost\/users",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": 2,
+    "total": 2
+}

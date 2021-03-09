@@ -2,22 +2,19 @@
 
 namespace App\Repositories;
 
-use App\Models\PasswordReset;
 use App\Support\Traits\ListQueryTrait;
 use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 class BaseRepository
 {
     use ListQueryTrait;
 
-    protected $model;
-    protected $primaryKey;
+    protected Model $model;
+    protected string $primaryKey;
     protected $query;
-    protected $filters;
-    protected $requiredRelations;
-    protected $requiredRelationsCount;
+    protected array $filters;
 
     public function setModel($modelClass)
     {
@@ -70,13 +67,9 @@ class BaseRepository
     {
         $this->query = $this->model->query();
 
-        if (Arr::has($filters, 'with')) {
-            $this->query->with($this->requiredRelations);
-        }
+        $this->query->with(Arr::get($filters, 'with', []));
 
-        if (Arr::has($filters, 'with_count')) {
-            $this->query->withCount($this->requiredRelations);
-        }
+        $this->query->withCount(Arr::get($filters, 'with_count', []));
 
         $this->filters = $filters;
 
@@ -96,7 +89,7 @@ class BaseRepository
 
     public function filterByQuery(array $fields)
     {
-        if (Arr::has($this->filters,'query')) {
+        if (Arr::has($this->filters, 'query')) {
             $this->query->where(function ($query) use ($fields) {
                 foreach ($fields as $field) {
                     $this->addOrWhereByQuery($query, $field);

@@ -62,7 +62,7 @@ class UserController extends Controller
 
     public function list(ListUserRequest $request, UserService $service)
     {
-        $result = $service->list($request->all());
+        $result = $service->list($request->validated());
 
         return response()->json($result);
     }

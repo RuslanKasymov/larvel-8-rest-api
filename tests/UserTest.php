@@ -117,17 +117,24 @@ class UserTest extends TestCase
     public function getListFilters()
     {
         return [
-//            [
-//                'filter' => [],
-//                'result' => 'list_all.json'
-//            ],
-//            [
-//                'filter' => [
-//                    'page' => 2,
-//                    'per_page' => 1
-//                ],
-//                'result' => 'list_by_page_per_page.json'
-//            ],
+            [
+                'filter' => ['role_id' => 1],
+                'result' => 'list_all.json'
+            ],
+            [
+                'filter' => [
+                    'page' => 2,
+                    'per_page' => 1
+                ],
+                'result' => 'list_by_page_per_page.json'
+            ],
+            [
+                'filter' => [
+                    'with' => ['role'],
+                    'with_count' => ['role']
+                ],
+                'result' => 'list_with_relations.json'
+            ],
             [
                 'filter' => [
                     'query' => 'rha'

@@ -16,6 +16,10 @@ class ListUserRequest extends FormRequest
     {
         return [
             'role_id' => 'integer|nullable',
+            'with' => 'array|nullable',
+            'with.*' => 'string',
+            'with_count' => 'array|nullable',
+            'with_count.*' => 'string',
             'query' => 'string|nullable',
             'page' => 'integer|nullable',
             'per_page' => 'integer|nullable',

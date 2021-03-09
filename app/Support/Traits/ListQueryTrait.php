@@ -5,6 +5,7 @@ namespace App\Support\Traits;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Prophecy\Exception\Doubler\MethodNotFoundException;
 
 trait ListQueryTrait
 {
@@ -45,10 +46,8 @@ trait ListQueryTrait
             $shiftedRelation = array_shift($entities);
             $relations = implode('.', $entities);
 
-            //check has relation
-
             $query->whereHas($shiftedRelation, function ($q) use ($relations, $value, $sign) {
-                $q->addWhere($q, $relations, $value, $sign);
+                $this->addWhere($q, $relations, $value, $sign);
             });
         } else {
             $query->where($field, $sign, $value);
@@ -63,7 +62,7 @@ trait ListQueryTrait
             $relations = implode('.', $entities);
 
             $query->orWhereHas($relations, function ($q) use ($fieldName) {
-                $q->addWhereByQuery($fieldName, $fieldName);
+                $this->addWhereByQuery($q, $fieldName);
             });
         } else {
             $query->orWhere(
