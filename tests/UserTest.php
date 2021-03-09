@@ -118,7 +118,7 @@ class UserTest extends TestCase
     {
         return [
             [
-                'filter' => ['role_id' => 1],
+                'filter' => [],
                 'result' => 'list_all.json'
             ],
             [
