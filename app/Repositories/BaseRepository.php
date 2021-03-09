@@ -96,7 +96,7 @@ class BaseRepository
 
     public function filterByQuery(array $fields)
     {
-        if (!empty($this->filter['query'])) {
+        if (Arr::has($this->filters,'query')) {
             $this->query->where(function ($query) use ($fields) {
                 foreach ($fields as $field) {
                     $this->addOrWhereByQuery($query, $field);

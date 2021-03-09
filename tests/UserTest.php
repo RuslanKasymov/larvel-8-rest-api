@@ -117,16 +117,22 @@ class UserTest extends TestCase
     public function getListFilters()
     {
         return [
-            [
-                'filter' => [],
-                'result' => 'list_all.json'
-            ],
+//            [
+//                'filter' => [],
+//                'result' => 'list_all.json'
+//            ],
+//            [
+//                'filter' => [
+//                    'page' => 2,
+//                    'per_page' => 1
+//                ],
+//                'result' => 'list_by_page_per_page.json'
+//            ],
             [
                 'filter' => [
-                    'page' => 2,
-                    'per_page' => 1
+                    'query' => 'rha'
                 ],
-                'result' => 'list_by_page_per_page.json'
+                'result' => 'list_by_search_query.json'
             ]
         ];
     }

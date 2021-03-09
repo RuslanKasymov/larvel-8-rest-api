@@ -5,7 +5,7 @@ namespace App\Http\Requests\Users;
 use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchUserRequest extends FormRequest
+class ListUserRequest extends FormRequest
 {
     public function authorize()
     {

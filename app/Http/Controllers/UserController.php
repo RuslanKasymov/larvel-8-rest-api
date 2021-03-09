@@ -7,7 +7,7 @@ use App\Http\Requests\Users\GetUserRequest;
 use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Requests\Users\DeleteUserRequest;
-use App\Http\Requests\Users\SearchUserRequest;
+use App\Http\Requests\Users\ListUserRequest;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Users\UpdateProfileRequest;
@@ -60,7 +60,7 @@ class UserController extends Controller
         return response()->noContent();
     }
 
-    public function list(SearchUserRequest $request, UserService $service)
+    public function list(ListUserRequest $request, UserService $service)
     {
         $result = $service->list($request->all());
 
