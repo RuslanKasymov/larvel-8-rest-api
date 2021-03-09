@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function get(GetUserRequest $request, UserService $service, $id)
     {
-        $result = $service->find($id);
+        $result = $service->first($id, $request->input('with', []));
 
         return response()->json($result);
     }

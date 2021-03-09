@@ -15,7 +15,10 @@ class GetUserRequest extends FormRequest
 
     public function rules()
     {
-        return [];
+        return [
+            'with' => 'array|nullable',
+            'with.*' => 'string',
+        ];
     }
 
     public function validateResolved()
