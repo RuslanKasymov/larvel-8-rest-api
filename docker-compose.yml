@@ -1,54 +1,85 @@
 version: '3'
 
+volumes:
+  db-volume:
+networks:
+  app-network:
+    driver: bridge
+
 services:
+  php:
+    container_name: php_${APP_NAME}
+    build: .docker/php
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./.docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    environment:
+      XDEBUG_MODE: debug
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  composer:
+    container_name: composer_${APP_NAME}
+    build: .docker/composer
+    command: install --ignore-platform-reqs
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+    depends_on:
+      - db
+      - php
+    networks:
+      - app-network
 
   nginx:
-      image: ronasit/php-nginx-dev:7.4
-      working_dir: /app
-      ports:
-          - 80:80
-          - 443:443
-      volumes:
-          - ./:/app
-      links:
-        - pgsql
-        - pgsql_test
-      environment:
-          XDEBUG_REMOTE_AUTOSTART: "on"
-          XDEBUG_PROFILER_ENABLE: 0
-          WEB_DOCUMENT_ROOT: /app/public
-          WEB_DOCUMENT_INDEX: index.php
-          REDIS_PORT: "6379"
-          XDEBUG_REMOTE_CONNECT_BACK: 0
-          XDEBUG_REMOTE_PORT: 9000
-          XDEBUG_REMOTE_HOST: host.docker.internal
-          php.xdebug.max_nesting_level: 250
-          php.memory_limit: -1
-
-  pgsql:
-    image: ronasit/postgres:9.6
+    image: nginx:alpine
+    container_name: nginx_${APP_NAME}
     ports:
-        - 5432:5432
-    environment:
-        POSTGRES_PASSWORD: ""
-        POSTGRES_USER: pguser
-        POSTGRES_DB: pgdb
+      - ${NGINX_HTTP_PORT}:80
+      - ${NGINX_HTTPS_PORT}:443
     volumes:
-      - .:/app
-
-  pgsql_test:
-    image: ronasit/postgres:9.6
-    ports:
-        - 5433:5432
-    environment:
-      POSTGRES_PASSWORD: ""
-      POSTGRES_USER: pguser
-      POSTGRES_DB: pgdb
-    volumes:
-    - .:/app
-    command: ["-c", "fsync=off"]
+      - ./:/var/www:cached
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./.docker/nginx/logs:/var/log/nginx
+    depends_on:
+      - php
+    networks:
+      - app-network
 
   redis:
-    image: redis:4
+    container_name: redis_${APP_NAME}
+    image: redis:6.0.8-alpine
     ports:
-        - 6379:6379
+      - ${REDIS_PORT}:6379
+    networks:
+      - app-network
+
+  db:
+    container_name: db_${APP_NAME}
+    image: postgres:13.2-alpine
+    ports:
+      - ${DB_PORT}:5432
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE}
+      PGDATA: /var/lib/postgresql/data/db/
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  db_test:
+    container_name: db_test_${APP_NAME}
+    image: postgres:13.2-alpine
+    ports:
+      - ${DB_PORT}0:5432
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE}
+    networks:
+      - app-network
