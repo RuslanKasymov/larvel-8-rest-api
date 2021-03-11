@@ -4,10 +4,10 @@ namespace App\Repositories;
 
 use App\Models\PasswordReset;
 
-class PasswordResetRepository extends BaseRepository
+class PasswordResetRepository extends Repository
 {
-    public function __construct()
+    public function __construct(PasswordReset $model)
     {
-        $this->setModel(PasswordReset::class);
+        parent::__construct($model);
     }
 }

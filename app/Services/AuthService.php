@@ -12,9 +12,9 @@ class AuthService
 {
     protected $userService;
 
-    public function __construct()
+    public function __construct(UserService $userService)
     {
-        $this->userService = app(UserService::class);
+        $this->userService = $userService;
     }
 
     public function register($registerData)

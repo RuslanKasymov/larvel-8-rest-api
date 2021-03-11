@@ -4,21 +4,15 @@ namespace App\Services;
 
 use BadMethodCallException;
 
-class BaseService
+abstract class Service
 {
     protected $authorizedUser;
     protected $repository;
 
-    public function __construct()
+    public function __construct($repository)
     {
+        $this->repository = $repository;
         $this->authorizedUser = auth()->user();
-    }
-
-    public function setRepository($repository)
-    {
-        $this->repository = app($repository);
-
-        return $this;
     }
 
     public function __call($name, $arguments)

@@ -4,11 +4,11 @@ namespace App\Repositories;
 
 use App\Models\User;
 
-class UserRepository extends BaseRepository
+class UserRepository extends Repository
 {
-    public function __construct()
+    public function __construct(User $model)
     {
-        $this->setModel(User::class);
+        parent::__construct($model);
     }
 
     public function list($filters)

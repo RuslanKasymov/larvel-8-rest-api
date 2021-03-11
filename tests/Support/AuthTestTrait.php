@@ -2,7 +2,9 @@
 
 namespace Tests\Support;
 
+use App\Repositories\PasswordResetRepository;
 use App\Services\ResetPasswordService;
+use App\Services\UserService;
 
 trait AuthTestTrait
 {
@@ -10,8 +12,15 @@ trait AuthTestTrait
 
     public function mockUniqueTokenGeneration($hash)
     {
-        $this->mockClass(ResetPasswordService::class, [
-            ['method' => 'generateUniqueHash', 'result' => $hash]
-        ]);
+        $this->mockClassPartial(
+            ResetPasswordService::class,
+            [
+                ['method' => 'generateUniqueHash', 'result' => $hash]
+            ],
+            [
+                app(PasswordResetRepository::class),
+                app(UserService::class)
+            ]
+        );
     }
 }

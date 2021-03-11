@@ -7,11 +7,11 @@ use App\Models\Media;
 /**
  * @property  Media $model
  */
-class MediaRepository extends BaseRepository
+class MediaRepository extends Repository
 {
-    public function __construct()
+    public function __construct(Media $model)
     {
-        $this->setModel(Media::class);
+        parent::__construct($model);
     }
 
     public function list($filters)

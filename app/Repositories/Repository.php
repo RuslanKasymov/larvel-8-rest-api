@@ -7,7 +7,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
-class BaseRepository
+abstract class Repository
 {
     use ListQueryTrait;
 
@@ -17,9 +17,9 @@ class BaseRepository
     protected array $filters;
     protected string $defaultOrderField;
 
-    public function setModel($modelClass)
+    public function __construct($model)
     {
-        $this->model = new $modelClass();
+        $this->model = $model;
 
         $this->primaryKey = $this->model->getKeyName();
         $this->defaultOrderField = $this->primaryKey;

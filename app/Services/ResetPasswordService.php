@@ -7,16 +7,15 @@ use App\Repositories\PasswordResetRepository;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ResetPasswordService extends BaseService
+class ResetPasswordService extends Service
 {
     protected $userService;
 
-    public function __construct()
+    public function __construct(PasswordResetRepository $repository, UserService $userService)
     {
-        parent::__construct();
+        parent::__construct($repository);
 
-        $this->setRepository(PasswordResetRepository::class);
-        $this->userService = app(UserService::class);
+        $this->userService = $userService;
     }
 
     public function forgotPassword(string $email): void

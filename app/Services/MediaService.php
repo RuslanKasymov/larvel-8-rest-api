@@ -10,15 +10,13 @@ use Illuminate\Support\Facades\Storage;
 /**
  * @property  MediaRepository $repository
  */
-class MediaService extends BaseService
+class MediaService extends Service
 {
     use FileProcessingTrait;
 
-    public function __construct()
+    public function __construct(MediaRepository $repository)
     {
-        parent::__construct();
-
-        $this->setRepository(MediaRepository::class);
+        parent::__construct($repository);
     }
 
     public function create($file, $data = [], $folder = '')

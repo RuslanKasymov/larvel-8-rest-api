@@ -6,13 +6,11 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
-class UserService extends BaseService
+class UserService extends Service
 {
-    public function __construct()
+    public function __construct(UserRepository $repository)
     {
-        parent::__construct();
-
-        $this->setRepository(UserRepository::class);
+        parent::__construct($repository);
     }
 
     public function create($data)
